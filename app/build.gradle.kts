@@ -49,7 +49,6 @@ android {
 dependencies {
 
     implementation("androidx.core:core-ktx:1.13.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.activity:activity-compose:1.9.0")
 
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
@@ -57,9 +56,26 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+    
+    // Android Lifecycle
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+    implementation("androidx.compose.runtime:runtime-livedata:1.6.6")
+    implementation("androidx.lifecycle:lifecycle-common-java8:2.7.0")
 
-    implementation("com.squareup.okhttp3:okhttp:4.12.0")
-    implementation("com.tinder.scarlet:scarlet:0.1.12")
+    // Gson
+    implementation("com.google.code.gson:gson:2.10")
+
+    implementation("com.github.NaikSoftware:StompProtocolAndroid:1.6.6")
+
+    implementation ("com.squareup.okhttp3:okhttp:4.12.0")
+
+    // RxJava
+    implementation ("io.reactivex.rxjava2:rxjava:2.2.10")
+    implementation ("io.reactivex.rxjava2:rxandroid:2.1.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.squareup.retrofit2:adapter-rxjava2:2.5.0")
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
