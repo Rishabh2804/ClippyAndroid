@@ -4,7 +4,6 @@ import android.util.Log
 import com.google.gson.Gson
 import io.reactivex.Completable
 import io.reactivex.CompletableTransformer
-import io.reactivex.FlowableSubscriber
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -14,7 +13,6 @@ import rish.dev.android.clippy.util.SOCKET_URL
 import rish.dev.android.clippy.util.TOPIC_CLIP_TEXT
 import ua.naiksoftware.stomp.Stomp
 import ua.naiksoftware.stomp.StompClient
-import ua.naiksoftware.stomp.dto.LifecycleEvent
 
 
 class SocketManager {
@@ -56,33 +54,10 @@ class SocketManager {
     }
 
     private fun subscribeLifecycle() {
-
-        try {
-            val flowableLifecycle = object : FlowableSubscriber<LifecycleEvent> {
-                override fun onSubscribe(s: org.reactivestreams.Subscription) {
-                    s.request(1)
-                }
-
-                override fun onNext(t: LifecycleEvent?) {
-                    Log.d("SocketManager", "Lifecycle event: $t")
-                }
-
-                override fun onError(t: Throwable) {
-                    Log.e("SocketManager", "Error in lifecycle: $t", t)
-                }
-
-                override fun onComplete() {
-                    Log.d("SocketManager", "Lifecycle completed")
-                }
-            }
-
-//            stompClient?.lifecycle()?.subscribe(flowableLifecycle)
-        } catch (e: Exception) {
-            Log.e("SocketManager", "Error subscribing to lifecycle", e)
-        }
+        // TODO: Implement lifecycle events
     }
 
-    fun subscribeToTopic(topic: String, onMessage: (Clip) -> Unit = {}) {
+    private fun subscribeToTopic(topic: String, onMessage: (Clip) -> Unit = {}) {
         try {
             val disposable = stompClient?.topic(topic)
                 ?.subscribe { topicMessage ->
@@ -130,11 +105,11 @@ class SocketManager {
         compositeDisposable = null
     }
 
-    private fun applySchedulers(): CompletableTransformer? {
+    private fun applySchedulers(): CompletableTransformer {
         return CompletableTransformer { upstream: Completable ->
             upstream
                 .unsubscribeOn(Schedulers.newThread())
-//                .subscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
         }
     }

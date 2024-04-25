@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ClippyAndroid</string>
+    <string name="clippy_tile">Connect Clippy Server</string>
+    <string name="title_clippy_service">Clippy is running in background</string>
+    <string name="enable_notif_permit">Please enable notification permission</string>
+    <string name="title_clip_received">Clip Received : %1$s</string>
 </resources>
